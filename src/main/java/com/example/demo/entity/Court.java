@@ -28,12 +28,14 @@ public class Court {
 	
 	private String category;
 	
+	private int bookingDuration;
+	
 	@ManyToOne
 	@JoinColumn(name = "facility_id")
 	private Facility facility;
 	
-	@OneToMany(mappedBy = "reserve", cascade = CascadeType.ALL, orphanRemoval = false)
-	private List<Reserve> reserves;
+	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = false)
+	private List<Booking> bookings;
 	
 	
 	

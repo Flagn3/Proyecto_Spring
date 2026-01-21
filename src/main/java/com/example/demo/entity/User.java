@@ -30,7 +30,7 @@ public class User {
 	private String password;
 	private String role;
 	
-	@OneToMany(mappedBy = "reserve", cascade = CascadeType.ALL, orphanRemoval = false)
-	private List<Reserve> reserves;
+	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = false)
+	private List<Booking> bookings;
 	
 }
