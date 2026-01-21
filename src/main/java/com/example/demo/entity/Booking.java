@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Reserve {
+public class Booking {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,8 +30,8 @@ public class Reserve {
 	@JoinColumn(name = "court_id")
 	private Court court;
 	
-	private LocalDateTime reserveDate;
+	private LocalDateTime bookingDateTime;
 	
-	private LocalDateTime courtDateTimeReserve;
+	private LocalDateTime courtDateTimeBooking;
 	
 }

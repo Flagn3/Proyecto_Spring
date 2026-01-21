@@ -34,7 +34,7 @@ public class Facility {
 	
 	private String location;
 	
-	@OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = false)
+	@OneToMany(mappedBy = "court", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Court> courts;
 	
 }
