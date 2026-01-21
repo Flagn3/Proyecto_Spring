@@ -23,20 +23,21 @@ public class Court {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String category;
-	
+
 	private int bookingDuration;
-	
+
+	private boolean activated;
+	private boolean deleted;
+
 	@ManyToOne
 	@JoinColumn(name = "facility_id")
 	private Facility facility;
-	
+
 	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Booking> bookings;
-	
-	
-	
+
 }

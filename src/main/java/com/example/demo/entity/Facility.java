@@ -21,20 +21,23 @@ public class Facility {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String openTime;
-	
+
 	private String closeTime;
-	
+
 	private int latitude;
-	
+
 	private int longitude;
-	
+
 	private String location;
-	
+
+	private boolean activated;
+	private boolean deleted;
+
 	@OneToMany(mappedBy = "court", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Court> courts;
-	
+
 }
