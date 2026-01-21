@@ -29,6 +29,9 @@ public class User {
 	private String img;
 	private String password;
 	private String role;
+	private boolean activated;
+	private boolean deleted;
+	
 	
 	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<Booking> bookings;

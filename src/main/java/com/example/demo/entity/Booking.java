@@ -34,4 +34,6 @@ public class Booking {
 	
 	private LocalDateTime courtDateTimeBooking;
 	
+	private boolean deleted;
+	
 }
