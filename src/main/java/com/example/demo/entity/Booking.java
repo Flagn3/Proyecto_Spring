@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,10 +26,12 @@ public class Booking {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnore
 	private User user;
 	
 	@ManyToOne
 	@JoinColumn(name = "court_id")
+	@JsonIgnore
 	private Court court;
 	
 	private LocalDateTime bookingDateTime;

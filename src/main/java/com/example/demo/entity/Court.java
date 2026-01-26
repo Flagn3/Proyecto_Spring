@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,9 +37,11 @@ public class Court {
 
 	@ManyToOne
 	@JoinColumn(name = "facility_id")
+	@JsonIgnore
 	private Facility facility;
 
-	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = false)
+	@OneToMany(mappedBy = "court", cascade = CascadeType.ALL, orphanRemoval = false)
+	@JsonIgnore
 	private List<Booking> bookings;
 
 }
