@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,9 +37,11 @@ public class Facility {
 	private String location;
 
 	private boolean activated;
+
 	private boolean deleted;
 
-	@OneToMany(mappedBy = "court", cascade = CascadeType.ALL, orphanRemoval = false)
+	@OneToMany(mappedBy = "facility", cascade = CascadeType.ALL, orphanRemoval = false)
+	@JsonIgnore
 	private List<Court> courts;
 
 }

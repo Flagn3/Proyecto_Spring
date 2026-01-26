@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +35,8 @@ public class User {
 	private boolean deleted;
 	
 	
-	@OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = false)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
+	@JsonIgnore
 	private List<Booking> bookings;
 	
 }
