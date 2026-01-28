@@ -2,19 +2,18 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.entity.Booking;
+import com.example.demo.model.BookingDTO;
 
 public interface BookingService {
 
-	List<Booking> listAllBookings();
+	List<BookingDTO> listAllBookings();
 	
-	Booking getBookingById(int id);
+	BookingDTO getBookingById(int id);
 	
-	Booking getBookingByUserId(int id);
+	BookingDTO getBookingByUserId(int id);
 	
-	int addBooking(Booking booking);
+	int addBooking(BookingDTO bookingDTO);
 	
 	int deleteBooking(int id);
-	
 	
 }
