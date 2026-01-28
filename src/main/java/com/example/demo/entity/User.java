@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,21 +23,33 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
+	private Long id;
+
+	@Column(nullable = false)
 	private String name;
+
+	@Column(nullable = false)
 	private String secondName;
+
+	@Column(nullable = false, unique = true)
 	private String email;
+
+	@Column(nullable = false, unique = true)
 	private String username;
+
 	private String img;
+
+	@Column(nullable = false)
 	private String password;
+
 	private String role;
+
 	private boolean activated;
+
 	private boolean deleted;
-	
-	
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = false)
 	@JsonIgnore
 	private List<Booking> bookings;
-	
+
 }
