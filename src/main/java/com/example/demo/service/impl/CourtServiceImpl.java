@@ -116,13 +116,25 @@ public class CourtServiceImpl implements CourtService {
 		return 0;
 	}
 
-	// Transform entity into model 
+	/**
+	 * Transform entity to model
+	 * 
+	 * @param court
+	 * @return
+	 */
 	private CourtDTO transform(Court court) {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(court, CourtDTO.class);
 	}
 
-	// Transform model into entity
+
+	/**
+	 * Transform model to entity
+	 * 
+	 * @param courtDTO
+	 * @return
+	 */
+
 	private Court transform(CourtDTO courtDTO) {
 
 		ModelMapper modelMapper = new ModelMapper();

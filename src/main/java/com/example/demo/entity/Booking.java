@@ -22,22 +22,22 @@ public class Booking {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	
+	private Long id;
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
 	private User user;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "court_id")
 	@JsonIgnore
 	private Court court;
-	
+
 	private LocalDateTime bookingDateTime;
-	
+
 	private LocalDateTime courtDateTimeBooking;
-	
+
 	private boolean deleted;
-	
+
 }
