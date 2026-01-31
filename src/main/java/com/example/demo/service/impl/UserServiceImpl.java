@@ -44,25 +44,28 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(Long id, UserDTO userDTO) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Soft delete an User
+	 */
 	@Override
 	public int deleteUser(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+		user.setDeleted(true);
+		user.setActivated(false);
+		userRepository.save(user);
+		return 1;
 	}
 
 	@Override
 	public int activateUser(int id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int deactivateUser(int id) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
