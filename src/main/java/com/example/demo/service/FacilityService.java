@@ -9,15 +9,15 @@ public interface FacilityService {
 	
 	List<FacilityDTO> listAllFacilities();
 	
-	Facility getFacilityById(int id);
+	Facility getFacilityById(long id);
 	
 	int addFacility(FacilityDTO facilityDTO);
 	
-	int deleteFacility(int id);
+	long deleteFacility(long id);
 	
 	int updateFacility(FacilityDTO facilityDTO);
 	
-	int activateFacility(int id);
+	long activateFacility(long id);
 	
-	int deactivateFacility(int id);
+	long deactivateFacility(long id);
 }

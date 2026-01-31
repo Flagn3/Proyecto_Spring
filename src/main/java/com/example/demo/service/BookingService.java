@@ -6,14 +6,14 @@ import com.example.demo.model.BookingDTO;
 
 public interface BookingService {
 
-	List<BookingDTO> listAllBookings();
+	List<BookingDTO> listAllBookingsByFacility(long id);
 	
-	BookingDTO getBookingById(int id);
+	BookingDTO getBookingById(long id);
 	
-	BookingDTO getBookingByUserId(int id);
+	List<BookingDTO> getBookingByUser(long id);
 	
 	int addBooking(BookingDTO bookingDTO);
 	
-	int deleteBooking(int id);
+	long deleteBooking(long id);
 	
 }

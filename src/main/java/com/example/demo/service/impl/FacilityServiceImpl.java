@@ -37,7 +37,7 @@ public class FacilityServiceImpl implements FacilityService{
 	 * Returns the facility by id
 	 */
 	@Override
-	public Facility getFacilityById(int id) {
+	public Facility getFacilityById(long id) {
 		Facility facility = new Facility();
 		for(Facility f : facilityRepository.findAll())
 			if(f.getId() == id)
@@ -60,7 +60,7 @@ public class FacilityServiceImpl implements FacilityService{
 	 * Soft delete a facility and returns its id
 	 */
 	@Override
-	public int deleteFacility(int id) {
+	public long deleteFacility(long id) {
 		Facility facility = facilityRepository.findById(id).orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setDeleted(true);
 		facilityRepository.save(facility);
@@ -83,7 +83,7 @@ public class FacilityServiceImpl implements FacilityService{
 	 * and returns the facility id
 	 */
 	@Override
-	public int activateFacility(int id) {
+	public long activateFacility(long id) {
 		Facility facility = facilityRepository.findById(id).orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setActivated(true);
 		facilityRepository.save(facility);
@@ -95,7 +95,7 @@ public class FacilityServiceImpl implements FacilityService{
 	 * and returns the facility id
 	 */
 	@Override
-	public int deactivateFacility(int id) {
+	public long deactivateFacility(long id) {
 		Facility facility = facilityRepository.findById(id).orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setActivated(false);
 		facilityRepository.save(facility);

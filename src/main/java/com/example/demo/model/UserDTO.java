@@ -23,10 +23,6 @@ public class UserDTO {
 	
 	private String username;
 	
-	private String img;
-	
-	private String password;
-	
 	private String role;
 	
 	private boolean activated;
