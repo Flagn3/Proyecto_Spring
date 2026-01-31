@@ -37,8 +37,6 @@ public class User {
 	@Column(nullable = false, unique = true)
 	private String username;
 
-	private String img;
-
 	@Column(nullable = false)
 	private String password;
 
