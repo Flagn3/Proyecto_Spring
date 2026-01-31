@@ -14,33 +14,31 @@ import com.example.demo.repository.FacilityRepository;
 import com.example.demo.service.FacilityService;
 
 @Service("facilityService")
-public class FacilityServiceImpl implements FacilityService{
+public class FacilityServiceImpl implements FacilityService {
 
 	@Autowired
 	@Qualifier("facilityRepository")
 	private FacilityRepository facilityRepository;
-	
-	
+
 	/**
 	 * Returns all the facilities
 	 */
 	@Override
 	public List<FacilityDTO> listAllFacilities() {
 		List<FacilityDTO> facilities = new ArrayList<>();
-		for(Facility f : facilityRepository.findAll())
+		for (Facility f : facilityRepository.findAll())
 			facilities.add(transform(f));
 		return facilities;
 	}
 
-	
 	/**
 	 * Returns the facility by id
 	 */
 	@Override
-	public Facility getFacilityById(int id) {
+	public Facility getFacilityById(long id) {
 		Facility facility = new Facility();
-		for(Facility f : facilityRepository.findAll())
-			if(f.getId() == id)
+		for (Facility f : facilityRepository.findAll())
+			if (f.getId() == id)
 				facility = f;
 		return facility;
 	}
@@ -50,9 +48,9 @@ public class FacilityServiceImpl implements FacilityService{
 	 */
 	@Override
 	public int addFacility(FacilityDTO facilityDTO) {
-		
+
 		facilityRepository.save(transform(facilityDTO));
-		
+
 		return facilityDTO.getId();
 	}
 
@@ -60,8 +58,9 @@ public class FacilityServiceImpl implements FacilityService{
 	 * Soft delete a facility and returns its id
 	 */
 	@Override
-	public Long deleteFacility(int id) {
-		Facility facility = facilityRepository.findById(id).orElseThrow(() -> new RuntimeException("Facility not found"));
+	public long deleteFacility(long id) {
+		Facility facility = facilityRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setDeleted(true);
 		facilityRepository.save(facility);
 		return facility.getId();
@@ -72,38 +71,37 @@ public class FacilityServiceImpl implements FacilityService{
 	 */
 	@Override
 	public int updateFacility(FacilityDTO facilityDTO) {
-		Facility facility = facilityRepository.findById(facilityDTO.getId()).orElseThrow(() -> new RuntimeException("Facility not found"));
+		Facility facility = facilityRepository.findById(facilityDTO.getId())
+				.orElseThrow(() -> new RuntimeException("Facility not found"));
 		facilityRepository.save(transform(facilityDTO));
 		return facilityDTO.getId();
 	}
 
-	
 	/**
-	 * Turns the activate attribute to true
-	 * and returns the facility id
+	 * Turns the activate attribute to true and returns the facility id
 	 */
 	@Override
-	public Long activateFacility(int id) {
-		Facility facility = facilityRepository.findById(id).orElseThrow(() -> new RuntimeException("Facility not found"));
+	public long activateFacility(long id) {
+		Facility facility = facilityRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setActivated(true);
 		facilityRepository.save(facility);
 		return facility.getId();
 	}
 
 	/**
-	 * Turns the activate attribute to false
-	 * and returns the facility id
+	 * Turns the activate attribute to false and returns the facility id
 	 */
 	@Override
-	public Long deactivateFacility(int id) {
-		Facility facility = facilityRepository.findById(id).orElseThrow(() -> new RuntimeException("Facility not found"));
+	public long deactivateFacility(long id) {
+		Facility facility = facilityRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setActivated(false);
 		facilityRepository.save(facility);
 		return facility.getId();
 	}
-	
 
-	// Transform entity into model 
+	// Transform entity into model
 	private FacilityDTO transform(Facility facility) {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(facility, FacilityDTO.class);

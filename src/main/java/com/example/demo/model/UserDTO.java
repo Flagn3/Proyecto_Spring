@@ -22,10 +22,6 @@ public class UserDTO {
 	private String email;
 
 	private String username;
-	
-	private String img;
-
-	private String password;
 
 	private String role;
 
