@@ -14,24 +14,24 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
 
 	private int id;
-	
+
 	private String name;
-	
+
 	private String secondName;
-	
+
 	private String email;
-	
+
 	private String username;
 	
 	private String img;
-	
+
 	private String password;
-	
+
 	private String role;
-	
+
 	private boolean activated;
-	
+
 	private boolean deleted;
-	
+
 	private List<Booking> bookings;
 }

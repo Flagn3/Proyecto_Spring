@@ -13,11 +13,11 @@ public interface FacilityService {
 	
 	int addFacility(FacilityDTO facilityDTO);
 	
-	int deleteFacility(int id);
+	Long deleteFacility(int id);
 	
 	int updateFacility(FacilityDTO facilityDTO);
 	
-	int activateFacility(int id);
+	Long activateFacility(int id);
 	
-	int deactivateFacility(int id);
+	Long deactivateFacility(int id);
 }
