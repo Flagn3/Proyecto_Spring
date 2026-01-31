@@ -13,10 +13,10 @@ public interface UserService {
 
 	User updateUser(Long id, UserDTO userDTO);
 
-	int deleteUser(int id);
+	void deleteUser(int id);
 
-	int activateUser(int id);
+	void activateUser(int id);
 
-	int deactivateUser(int id);
+	void deactivateUser(int id);
 
 }

@@ -29,5 +29,5 @@ public class UserDTO {
 
 	private boolean deleted;
 
-	private List<Booking> bookings;
+//	private List<Booking> bookings;
 }

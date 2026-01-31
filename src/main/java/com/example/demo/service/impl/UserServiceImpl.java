@@ -42,31 +42,46 @@ public class UserServiceImpl implements UserService {
 		return userDTO;
 	}
 
+	/**
+	 * Update an existing User
+	 */
 	@Override
 	public User updateUser(Long id, UserDTO userDTO) {
-		return null;
+		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+		user.setName(userDTO.getName());
+		user.setSecondName(userDTO.getSecondName());
+		return userRepository.save(user);
 	}
 
 	/**
 	 * Soft delete an User
 	 */
 	@Override
-	public int deleteUser(int id) {
+	public void deleteUser(int id) {
 		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 		user.setDeleted(true);
 		user.setActivated(false);
 		userRepository.save(user);
-		return 1;
 	}
 
+	/**
+	 * Activate User
+	 */
 	@Override
-	public int activateUser(int id) {
-		return 0;
+	public void activateUser(int id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+		user.setActivated(true);
+		userRepository.save(user);
 	}
 
+	/**
+	 * Deactivate User
+	 */
 	@Override
-	public int deactivateUser(int id) {
-		return 0;
+	public void deactivateUser(int id) {
+		User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+		user.setActivated(false);
+		userRepository.save(user);
 	}
 
 	/**
