@@ -25,6 +25,14 @@ public class AuthService {
 	private JwtTokenProvider tokenProvider;
 
 	public String login(String username, String password) {
+
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("Invalid username or password"));
+
+		if (user.isDeleted() || !user.isActivated()) {
+			throw new RuntimeException("User is deleted or deactivated");
+		}
+
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
@@ -36,8 +44,14 @@ public class AuthService {
 		if (userRepository.findByUsername(user.getUsername()).isPresent()) {
 			throw new RuntimeException("Username is already taken!");
 		}
+		if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+			throw new RuntimeException("Email is already registered!");
+		}
+
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole("ROLE_USER"); // Default role
+		user.setActivated(true);
+		user.setDeleted(false);
 		return userRepository.save(user);
 	}
 
