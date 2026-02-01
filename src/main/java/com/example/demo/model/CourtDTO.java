@@ -32,9 +32,11 @@ public class CourtDTO {
 	private boolean activated;
 	
 	private boolean deleted;
+	
+	private int facilityId;
 
-	private Facility facility;
+//	private Facility facility;
 
-	private List<Booking> bookings;
+//	private List<Booking> bookings;
 	
 }
