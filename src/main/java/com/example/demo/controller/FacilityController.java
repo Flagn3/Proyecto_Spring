@@ -75,4 +75,25 @@ public class FacilityController {
 	}
 	
 	
+	@PostMapping("/activateFacility/{id}")
+	public ResponseEntity<?> activateFacility(@PathVariable long id){
+		try {
+			facilityService.activateFacility(id);
+			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility activated succesfully"));
+		}catch(RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
+		}
+	}
+	
+	
+	@PostMapping("/deactivateFacility/{id}")
+	public ResponseEntity<?> deactivateFacility(@PathVariable long id){
+		try {
+			facilityService.deactivateFacility(id);
+			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility deactivated succesfully"));
+		}catch(RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
+		}
+	}
+	
 }
