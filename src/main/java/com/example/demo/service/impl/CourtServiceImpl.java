@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.Court;
 import com.example.demo.model.CourtDTO;
 import com.example.demo.repository.CourtRepository;
+import com.example.demo.repository.FacilityRepository;
 import com.example.demo.service.CourtService;
 import com.example.demo.service.FacilityService;
 
@@ -22,8 +23,8 @@ public class CourtServiceImpl implements CourtService {
 	private CourtRepository courtRepository;
 
 	@Autowired
-	@Qualifier("facilityService")
-	private FacilityService facilityService;
+	@Qualifier("facilityRepository")
+	private FacilityRepository facilityRepository;
 
 	/**
 	 * Get all Courts in database
@@ -71,7 +72,7 @@ public class CourtServiceImpl implements CourtService {
 		court.setBookingDuration(courtDTO.getBookingDuration());
 		court.setActivated(true);
 		court.setDeleted(false);
-		court.setFacility(facilityService.getFacilityById(courtDTO.getFacilityId()));
+		court.setFacility(facilityRepository.findById(courtDTO.getFacilityId()).orElse(null));
 		return transform(courtRepository.save(court));
 	}
 
