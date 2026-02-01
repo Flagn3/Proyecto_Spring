@@ -12,6 +12,7 @@ import com.example.demo.entity.Court;
 import com.example.demo.model.CourtDTO;
 import com.example.demo.repository.CourtRepository;
 import com.example.demo.service.CourtService;
+import com.example.demo.service.FacilityService;
 
 @Service("courtService")
 public class CourtServiceImpl implements CourtService {
@@ -19,6 +20,10 @@ public class CourtServiceImpl implements CourtService {
 	@Autowired
 	@Qualifier("courtRepository")
 	private CourtRepository courtRepository;
+
+	@Autowired
+	@Qualifier("facilityService")
+	private FacilityService facilityService;
 
 	/**
 	 * Get all Courts in database
@@ -58,62 +63,59 @@ public class CourtServiceImpl implements CourtService {
 	 * Create a new Court
 	 */
 	@Override
-	public int addCourt(CourtDTO courtDTO) {
-		try {
-			Court court = transform(courtDTO);
-			courtRepository.save(court);
-			return 1;
-		} catch (Exception e) {
-			return 0;
-		}
+	public CourtDTO addCourt(CourtDTO courtDTO) {
+//		Court court = transform(courtDTO);
+		Court court = new Court();
+		court.setName(courtDTO.getName());
+		court.setCategory(courtDTO.getCategory());
+		court.setBookingDuration(courtDTO.getBookingDuration());
+		court.setActivated(true);
+		court.setDeleted(false);
+		court.setFacility(facilityService.getFacilityById(courtDTO.getFacilityId()));
+		return transform(courtRepository.save(court));
 	}
 
 	/**
 	 * Update an existing Court
 	 */
 	@Override
-	public int updateCourt(CourtDTO courtDTO) {
-		try {
-			Court court = courtRepository.findById(courtDTO.getId())
-					.orElseThrow(() -> new RuntimeException("Court not found"));
-			courtRepository.save(transform(courtDTO));
-			return 1;
-		} catch (Exception e) {
-			return 0;
-		}
+	public CourtDTO updateCourt(int id, CourtDTO courtDTO) {
+		Court court = courtRepository.findById(id).orElseThrow(() -> new RuntimeException("Court not found"));
+		court.setName(courtDTO.getName());
+		court.setBookingDuration(courtDTO.getBookingDuration());
+
+		return transform(courtRepository.save(court));
 	}
 
 	/**
 	 * Soft delete a Court
 	 */
 	@Override
-	public int deleteCourt(int id) {
+	public void deleteCourt(int id) {
 		Court court = courtRepository.findById(id).orElseThrow(() -> new RuntimeException("Court not found"));
 		court.setDeleted(true);
+		court.setActivated(false);
 		courtRepository.save(court);
-		return 0;
 	}
 
 	/**
 	 * Activate a Court
 	 */
 	@Override
-	public int activateCourt(int id) {
+	public void activateCourt(int id) {
 		Court court = courtRepository.findById(id).orElseThrow(() -> new RuntimeException("Court not found"));
 		court.setActivated(true);
 		courtRepository.save(court);
-		return 0;
 	}
 
 	/**
 	 * Deactivate a Court
 	 */
 	@Override
-	public int deactivateCourt(int id) {
+	public void deactivateCourt(int id) {
 		Court court = courtRepository.findById(id).orElseThrow(() -> new RuntimeException("Court not found"));
 		court.setActivated(false);
 		courtRepository.save(court);
-		return 0;
 	}
 
 	/**
@@ -126,7 +128,6 @@ public class CourtServiceImpl implements CourtService {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(court, CourtDTO.class);
 	}
-
 
 	/**
 	 * Transform model to entity

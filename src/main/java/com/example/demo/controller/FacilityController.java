@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Facility;
@@ -59,6 +60,16 @@ public class FacilityController {
 			facilityService.deleteFacility(id);
 			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility added succesfully"));
 		}catch(RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
+		}
+	}
+	
+	@PutMapping("/updateFacility/{id}")
+	public ResponseEntity<?> updateFacility(@ModelAttribute FacilityDTO facilityDTO){
+		try {
+			facilityService.updateFacility(facilityDTO);
+			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(facilityDTO.getId()), "Facility added succesfully"));
+		}catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
 		}
 	}
