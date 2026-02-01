@@ -12,6 +12,7 @@ import com.example.demo.entity.Court;
 import com.example.demo.model.CourtDTO;
 import com.example.demo.repository.CourtRepository;
 import com.example.demo.service.CourtService;
+import com.example.demo.service.FacilityService;
 
 @Service("courtService")
 public class CourtServiceImpl implements CourtService {
@@ -19,6 +20,10 @@ public class CourtServiceImpl implements CourtService {
 	@Autowired
 	@Qualifier("courtRepository")
 	private CourtRepository courtRepository;
+
+	@Autowired
+	@Qualifier("facilityService")
+	private FacilityService facilityService;
 
 	/**
 	 * Get all Courts in database
@@ -59,9 +64,14 @@ public class CourtServiceImpl implements CourtService {
 	 */
 	@Override
 	public CourtDTO addCourt(CourtDTO courtDTO) {
-		Court court = transform(courtDTO);
+//		Court court = transform(courtDTO);
+		Court court = new Court();
+		court.setName(courtDTO.getName());
+		court.setCategory(courtDTO.getCategory());
+		court.setBookingDuration(courtDTO.getBookingDuration());
 		court.setActivated(true);
 		court.setDeleted(false);
+		court.setFacility(facilityService.getFacilityById(courtDTO.getFacilityId()));
 		return transform(courtRepository.save(court));
 	}
 
