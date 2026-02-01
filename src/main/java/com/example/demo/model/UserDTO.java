@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDTO {
 
-	private int id;
+//	private int id;
 
 	private String name;
 
@@ -29,5 +29,5 @@ public class UserDTO {
 
 	private boolean deleted;
 
-	private List<Booking> bookings;
+//	private List<Booking> bookings;
 }
