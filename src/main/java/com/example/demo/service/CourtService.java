@@ -13,14 +13,14 @@ public interface CourtService {
 
 	CourtDTO getCourtById(int id);
 
-	int addCourt(CourtDTO courtDTO);
+	CourtDTO addCourt(CourtDTO courtDTO);
 
-	int updateCourt(CourtDTO courtDTO);
+	CourtDTO updateCourt(int id, CourtDTO courtDTO);
 
-	int deleteCourt(int id);
+	void deleteCourt(int id);
 	
-	int activateCourt(int id);
+	void activateCourt(int id);
 	
-	int deactivateCourt(int id);
+	void deactivateCourt(int id);
 
 }
