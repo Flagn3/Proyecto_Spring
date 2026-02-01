@@ -6,12 +6,14 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Booking;
 import com.example.demo.model.BookingDTO;
 import com.example.demo.repository.BookingRepository;
 import com.example.demo.service.BookingService;
 
+@Service("bookingService")
 public class BookingServiceImpl implements BookingService{
 	
 	@Autowired
@@ -51,20 +53,19 @@ public class BookingServiceImpl implements BookingService{
 	}
 
 	@Override
-	public int addBooking(BookingDTO bookingDTO) {
+	public void addBooking(BookingDTO bookingDTO) {
 		
 		bookingRepository.save(transform(bookingDTO));
 		
-		return bookingDTO.getId();
 	}
 
 	@Override
-	public long deleteBooking(long id) {
+	public void deleteBooking(long id) {
 		
 		Booking booking = bookingRepository.findById(id).orElseThrow(() -> new RuntimeException("Booking not found"));
 		booking.setDeleted(true);
 		bookingRepository.save(booking);
-		return booking.getId();
+
 	}
 	
 	// Transform entity into model 

@@ -9,16 +9,16 @@ public interface FacilityService {
 
 	List<FacilityDTO> listAllFacilities();
 
-	Facility getFacilityById(long id);
+	FacilityDTO getFacilityById(long id);
 
-	int addFacility(FacilityDTO facilityDTO);
+	void addFacility(Facility facility);
 
-	long deleteFacility(long id);
+	void deleteFacility(long id);
 
-	int updateFacility(FacilityDTO facilityDTO);
+	void updateFacility(FacilityDTO facilityDTO);
 
-	long activateFacility(long id);
+	void activateFacility(long id);
 
-	long deactivateFacility(long id);
+	void deactivateFacility(long id);
 
 }

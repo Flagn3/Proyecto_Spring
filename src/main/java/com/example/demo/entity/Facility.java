@@ -30,10 +30,6 @@ public class Facility {
 
 	private String closeTime;
 
-	private int latitude;
-
-	private int longitude;
-
 	private String location;
 
 	private boolean activated;

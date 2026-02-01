@@ -12,8 +12,8 @@ public interface BookingService {
 	
 	List<BookingDTO> getBookingByUser(long id);
 	
-	int addBooking(BookingDTO bookingDTO);
+	void addBooking(BookingDTO bookingDTO);
 	
-	long deleteBooking(long id);
+	void deleteBooking(long id);
 	
 }
