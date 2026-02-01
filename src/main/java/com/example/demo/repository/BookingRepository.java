@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.entity.Booking;
 
-@Repository("bookingRespository")
+@Repository("bookingRepository")
 public interface BookingRepository extends JpaRepository<Booking, Serializable> {
 
 }

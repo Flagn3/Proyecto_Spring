@@ -35,70 +35,67 @@ public class FacilityServiceImpl implements FacilityService {
 	 * Returns the facility by id
 	 */
 	@Override
-	public Facility getFacilityById(long id) {
-		Facility facility = new Facility();
-		for (Facility f : facilityRepository.findAll())
-			if (f.getId() == id)
-				facility = f;
-		return facility;
+	public FacilityDTO getFacilityById(long id) {
+		FacilityDTO facilityDTO = transform(
+				facilityRepository.findById(id).orElseThrow(() -> new RuntimeException("Facility not found")));
+		return facilityDTO;
 	}
 
 	/**
 	 * Creates a facility and returns its id
 	 */
 	@Override
-	public int addFacility(FacilityDTO facilityDTO) {
+	public void addFacility(Facility facility) {
 
-		facilityRepository.save(transform(facilityDTO));
+		facilityRepository.save(facility);
 
-		return facilityDTO.getId();
 	}
 
 	/**
 	 * Soft delete a facility and returns its id
 	 */
 	@Override
-	public long deleteFacility(long id) {
+	public void deleteFacility(long id) {
 		Facility facility = facilityRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setDeleted(true);
 		facilityRepository.save(facility);
-		return facility.getId();
+
 	}
 
 	/**
 	 * Update a facility and returns its id
 	 */
 	@Override
-	public int updateFacility(FacilityDTO facilityDTO) {
+	public void updateFacility(FacilityDTO facilityDTO) {
 		Facility facility = facilityRepository.findById(facilityDTO.getId())
 				.orElseThrow(() -> new RuntimeException("Facility not found"));
 		facilityRepository.save(transform(facilityDTO));
-		return facilityDTO.getId();
+
 	}
 
 	/**
 	 * Turns the activate attribute to true and returns the facility id
 	 */
 	@Override
-	public long activateFacility(long id) {
+	public void activateFacility(long id) {
 		Facility facility = facilityRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setActivated(true);
 		facilityRepository.save(facility);
-		return facility.getId();
+
 	}
 
 	/**
 	 * Turns the activate attribute to false and returns the facility id
 	 */
 	@Override
-	public long deactivateFacility(long id) {
+	public void deactivateFacility(long id) {
 		Facility facility = facilityRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Facility not found"));
 		facility.setActivated(false);
 		facilityRepository.save(facility);
-		return facility.getId();
+
 	}
 
 	// Transform entity into model
