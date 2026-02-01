@@ -21,7 +21,7 @@ public class BookingServiceImpl implements BookingService{
 	private BookingRepository bookingRepository;
 
 	@Override
-	public List<BookingDTO> listAllBookingsByFacility(long id) {
+	public List<BookingDTO> getAllBookingsByFacility(long id) {
 		List<BookingDTO> bookings = new ArrayList<>();
 		for(Booking b : bookingRepository.findAll()) {
 			if(b.getCourt().getFacility().getId() == id) {
@@ -53,9 +53,9 @@ public class BookingServiceImpl implements BookingService{
 	}
 
 	@Override
-	public void addBooking(BookingDTO bookingDTO) {
+	public void addBooking(Booking booking) {
 		
-		bookingRepository.save(transform(bookingDTO));
+		bookingRepository.save(booking);
 		
 	}
 
