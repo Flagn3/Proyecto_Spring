@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BookingDTO {
 
-//	private int id;
+	private int id;
 
 //	private User user;
 	private int userId;
