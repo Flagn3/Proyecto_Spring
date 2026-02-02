@@ -23,14 +23,14 @@ public class BookingDTO {
 
 //	private int id;
 
-	private User user;
-	
-	private Court court;
-	
+//	private User user;
+	private int userId;
+//	private Court court;
+	private int courtId;
 	private LocalDateTime bookingDateTime;
-	
+
 	private LocalDateTime courtDateTimeBooking;
-	
+
 	private boolean deleted;
-	
+
 }

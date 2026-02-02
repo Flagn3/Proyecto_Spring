@@ -13,7 +13,7 @@ public interface BookingService {
 	
 	List<BookingDTO> getBookingByUser(long id);
 	
-	void addBooking(Booking booking);
+	void addBooking(BookingDTO bookingDTO);
 	
 	void deleteBooking(long id);
 	
