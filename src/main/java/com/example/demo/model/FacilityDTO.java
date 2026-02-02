@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FacilityDTO {
 
-	//private int id;
+	private int id;
 
 	private String name;
 
