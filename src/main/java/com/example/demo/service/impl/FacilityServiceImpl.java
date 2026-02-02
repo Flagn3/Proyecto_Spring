@@ -67,11 +67,16 @@ public class FacilityServiceImpl implements FacilityService {
 	 * Update a facility and returns its id
 	 */
 	@Override
-	public void updateFacility(FacilityDTO facilityDTO) {
-		Facility facility = facilityRepository.findById(facilityDTO.getId())
+	public FacilityDTO updateFacility(long id, FacilityDTO facilityDTO) {
+		Facility facility = facilityRepository.findById(id)
 				.orElseThrow(() -> new RuntimeException("Facility not found"));
-		facilityRepository.save(transform(facilityDTO));
-
+		
+		facility.setName(facilityDTO.getName());
+		facility.setLocation(facilityDTO.getLocation());
+		facility.setOpenTime(facilityDTO.getOpenTime());
+		facility.setCloseTime(facilityDTO.getCloseTime());
+ 
+		return transform(facilityRepository.save(facility));
 	}
 
 	/**
