@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FacilityDTO {
 
-	private int id;
+	//private int id;
 
 	private String name;
 
@@ -33,6 +33,6 @@ public class FacilityDTO {
 	
 	private boolean deleted;
 
-	private List<Court> courts;
+	// private List<Court> courts;
 
 }

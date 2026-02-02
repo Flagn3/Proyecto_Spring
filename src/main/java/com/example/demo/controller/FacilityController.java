@@ -39,7 +39,7 @@ public class FacilityController {
 	public ResponseEntity<?> getFacilityById(@PathVariable int id){
 		try {
 			FacilityDTO facilityDTO = facilityService.getFacilityById(id);
-			return ResponseEntity.ok(new ResponseAPI<>(true, facilityDTO, "Facility retrieved succesfully"));
+			return ResponseEntity.ok(new ResponseAPI<>(true, facilityDTO, "Facility retrieved successfully"));
 		}catch(RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
 		}
@@ -65,10 +65,10 @@ public class FacilityController {
 	}
 	
 	@PutMapping("/updateFacility/{id}")
-	public ResponseEntity<?> updateFacility(@ModelAttribute FacilityDTO facilityDTO){
+	public ResponseEntity<?> updateFacility(@PathVariable long id ,@ModelAttribute FacilityDTO facilityDTO){
 		try {
-			facilityService.updateFacility(facilityDTO);
-			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(facilityDTO.getId()), "Facility added succesfully"));
+			FacilityDTO facility = facilityService.updateFacility(id, facilityDTO);
+			return ResponseEntity.ok(new ResponseAPI<>(true, facility, "Facility added successfully"));
 		}catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
 		}
@@ -79,7 +79,7 @@ public class FacilityController {
 	public ResponseEntity<?> activateFacility(@PathVariable long id){
 		try {
 			facilityService.activateFacility(id);
-			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility activated succesfully"));
+			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility activated successfully"));
 		}catch(RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
 		}
@@ -90,7 +90,7 @@ public class FacilityController {
 	public ResponseEntity<?> deactivateFacility(@PathVariable long id){
 		try {
 			facilityService.deactivateFacility(id);
-			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility deactivated succesfully"));
+			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility deactivated successfully"));
 		}catch(RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
 		}
