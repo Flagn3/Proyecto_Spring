@@ -29,7 +29,7 @@ public class FacilityController {
 	@Qualifier("facilityService")
 	private FacilityService facilityService;
 	
-	@GetMapping
+	@GetMapping("/getAll")
 	public ResponseEntity<?> getAllFacilities(){
 		List<FacilityDTO> facilities = facilityService.listAllFacilities();
 		return ResponseEntity.ok(new ResponseAPI<>(true, facilities, "Facilities retrieved succesfully"));
@@ -46,10 +46,10 @@ public class FacilityController {
 	}
 	
 	@PostMapping("/addFacility")
-	public ResponseEntity<?> addFacility(@ModelAttribute Facility facility){
+	public ResponseEntity<?> addFacility(@RequestBody FacilityDTO facilityDTO){
 		
-		facilityService.addFacility(facility);
-		return ResponseEntity.ok(new ResponseAPI<>(true, facility, "Facility added succesfully"));
+		facilityService.addFacility(facilityDTO);
+		return ResponseEntity.ok(new ResponseAPI<>(true, facilityDTO, "Facility added succesfully"));
 		
 	}
 	
@@ -65,7 +65,7 @@ public class FacilityController {
 	}
 	
 	@PutMapping("/updateFacility/{id}")
-	public ResponseEntity<?> updateFacility(@PathVariable long id ,@ModelAttribute FacilityDTO facilityDTO){
+	public ResponseEntity<?> updateFacility(@PathVariable long id ,@RequestBody FacilityDTO facilityDTO){
 		try {
 			FacilityDTO facility = facilityService.updateFacility(id, facilityDTO);
 			return ResponseEntity.ok(new ResponseAPI<>(true, facility, "Facility added successfully"));

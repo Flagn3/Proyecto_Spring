@@ -11,20 +11,30 @@ import org.springframework.stereotype.Service;
 import com.example.demo.entity.Booking;
 import com.example.demo.model.BookingDTO;
 import com.example.demo.repository.BookingRepository;
+import com.example.demo.repository.CourtRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.BookingService;
 
 @Service("bookingService")
-public class BookingServiceImpl implements BookingService{
-	
+public class BookingServiceImpl implements BookingService {
+
 	@Autowired
 	@Qualifier("bookingRepository")
 	private BookingRepository bookingRepository;
 
+	@Autowired
+	@Qualifier("courtRepository")
+	private CourtRepository courtRepository;
+
+	@Autowired
+	@Qualifier("userRepository")
+	private UserRepository userRepository;
+
 	@Override
 	public List<BookingDTO> getAllBookingsByFacility(long id) {
 		List<BookingDTO> bookings = new ArrayList<>();
-		for(Booking b : bookingRepository.findAll()) {
-			if(b.getCourt().getFacility().getId() == id) {
+		for (Booking b : bookingRepository.findAll()) {
+			if (b.getCourt().getFacility().getId() == id) {
 				bookings.add(transform(b));
 			}
 		}
@@ -35,40 +45,48 @@ public class BookingServiceImpl implements BookingService{
 	public BookingDTO getBookingById(long id) {
 		BookingDTO bookingDTO = transform(
 				bookingRepository.findById(id).orElseThrow(() -> new RuntimeException("Booking not found")));
-		
+
 		return bookingDTO;
 	}
 
 	@Override
 	public List<BookingDTO> getBookingByUser(long id) {
-		
+
 		List<BookingDTO> bookingsByUser = new ArrayList<>();
-		for(Booking b : bookingRepository.findAll()) {
-			if(b.getUser().getId() == id) {
+		for (Booking b : bookingRepository.findAll()) {
+			if (b.getUser().getId() == id) {
 				bookingsByUser.add(transform(b));
 			}
 		}
-		
+
 		return bookingsByUser;
 	}
 
 	@Override
-	public void addBooking(Booking booking) {
-		
+	public void addBooking(BookingDTO bookingDTO) {
+
+		Booking booking = new Booking();
+		booking.setCourtDateTimeBooking(bookingDTO.getCourtDateTimeBooking());
+		booking.setBookingDateTime(bookingDTO.getBookingDateTime());
+		booking.setDeleted(false);
+
+		booking.setCourt(courtRepository.findById(bookingDTO.getCourtId()).orElse(null));
+		booking.setUser(userRepository.findById(bookingDTO.getUserId()).orElse(null));
+
 		bookingRepository.save(booking);
-		
+
 	}
 
 	@Override
 	public void deleteBooking(long id) {
-		
+
 		Booking booking = bookingRepository.findById(id).orElseThrow(() -> new RuntimeException("Booking not found"));
 		booking.setDeleted(true);
 		bookingRepository.save(booking);
 
 	}
-	
-	// Transform entity into model 
+
+	// Transform entity into model
 	private BookingDTO transform(Booking booking) {
 		ModelMapper modelMapper = new ModelMapper();
 		return modelMapper.map(booking, BookingDTO.class);
@@ -84,7 +102,4 @@ public class BookingServiceImpl implements BookingService{
 
 	}
 
-
-	
-	
 }
