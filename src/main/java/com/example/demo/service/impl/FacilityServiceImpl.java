@@ -47,7 +47,14 @@ public class FacilityServiceImpl implements FacilityService {
 	@Override
 	public void addFacility(FacilityDTO facilityDTO) {
 
-		facilityRepository.save(transform(facilityDTO));
+		Facility facility = new Facility();
+		
+		facility.setName(facilityDTO.getName());
+		facility.setCloseTime(facilityDTO.getCloseTime());
+		facility.setOpenTime(facilityDTO.getOpenTime());
+		facility.setLocation(facilityDTO.getLocation());
+		
+		facilityRepository.save(facility);
 
 	}
 

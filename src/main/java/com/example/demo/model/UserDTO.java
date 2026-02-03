@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class UserDTO {
 
 	private int id;
@@ -28,6 +28,14 @@ public class UserDTO {
 	private boolean activated;
 
 	private boolean deleted;
+
+	public UserDTO(String name, String secondName, String email, String username) {
+		super();
+		this.name = name;
+		this.secondName = secondName;
+		this.email = email;
+		this.username = username;
+	}
 
 //	private List<Booking> bookings;
 }

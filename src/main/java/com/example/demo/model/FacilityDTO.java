@@ -33,6 +33,14 @@ public class FacilityDTO {
 	
 	private boolean deleted;
 
+	public FacilityDTO(String name, String openTime, String closeTime, String location) {
+		super();
+		this.name = name;
+		this.openTime = openTime;
+		this.closeTime = closeTime;
+		this.location = location;
+	}
+	
 	// private List<Court> courts;
 
 }
