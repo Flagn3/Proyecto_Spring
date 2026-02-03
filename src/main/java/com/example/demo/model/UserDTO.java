@@ -29,5 +29,13 @@ public class UserDTO {
 
 	private boolean deleted;
 
+	public UserDTO(String name, String secondName, String email, String username) {
+		super();
+		this.name = name;
+		this.secondName = secondName;
+		this.email = email;
+		this.username = username;
+	}
+
 //	private List<Booking> bookings;
 }

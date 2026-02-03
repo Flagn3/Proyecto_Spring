@@ -23,6 +23,18 @@ public class CourtDTO {
 
 	private int facilityId;
 
+	public CourtDTO(String name, String category, int bookingDuration, int facilityId) {
+		super();
+		this.name = name;
+		this.category = category;
+		this.bookingDuration = bookingDuration;
+		this.facilityId = facilityId;
+	}
+	
+	
+	
+	
+
 //	private Facility facility;
 
 //	private List<Booking> bookings;

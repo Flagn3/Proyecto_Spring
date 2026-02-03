@@ -33,4 +33,14 @@ public class BookingDTO {
 
 	private boolean deleted;
 
+	public BookingDTO(int userId, int courtId, LocalDateTime bookingDateTime, LocalDateTime courtDateTimeBooking) {
+		super();
+		this.userId = userId;
+		this.courtId = courtId;
+		this.bookingDateTime = bookingDateTime;
+		this.courtDateTimeBooking = courtDateTimeBooking;
+	}
+	
+	
+
 }
