@@ -39,7 +39,7 @@ public class AuthController {
 		try {
 			User newUser = authService.register(user);
 			Map<String, Object> data = Map.of("id", newUser.getId(), "username", newUser.getUsername(), "email",
-					newUser.getEmail(), "name", newUser.getName(), "secondname", newUser.getSecondName());
+					newUser.getEmail(), "name", newUser.getName(), "secondName", newUser.getSecondName());
 			return ResponseEntity.ok(new ResponseAPI<>(true, data, "User registered successfully"));
 		} catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseAPI<>(false, null, e.getMessage()));
