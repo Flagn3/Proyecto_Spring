@@ -50,4 +50,15 @@ public class User {
 	@JsonIgnore
 	private List<Booking> bookings;
 
+	public User(String name, String secondName, String email, String username, String password) {
+		super();
+		this.name = name;
+		this.secondName = secondName;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+	
+	
+
 }
