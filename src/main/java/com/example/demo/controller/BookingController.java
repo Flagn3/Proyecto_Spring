@@ -27,68 +27,83 @@ public class BookingController {
 	@Autowired
 	@Qualifier("bookingService")
 	private BookingService bookingService;
-	
+
+	@GetMapping
+	public ResponseEntity<?> getAllBookings() {
+		List<BookingDTO> bookings = bookingService.getAllBookings();
+
+		if (bookings.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ResponseAPI<>(false, null, "There are no bookings"));
+		} else {
+			return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved successfully"));
+		}
+	}
+
 	@PostMapping("/getAllBookings/{id}")
-	public ResponseEntity<?> getAllBookings(@PathVariable long id){
-		
+	public ResponseEntity<?> getAllBookings(@PathVariable long id) {
+
 		List<BookingDTO> bookings = bookingService.getAllBookingsByFacility(id);
-		
-		if(bookings.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, "There are no bookings"));
-		}else {
+
+		if (bookings.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ResponseAPI<>(false, null, "There are no bookings"));
+		} else {
 			return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved succesfully"));
 		}
 	}
-	
+
 	@GetMapping("/getByCourt/{courtId}")
 	public ResponseEntity<?> getBookingsByCourt(@PathVariable int courtId) {
-	    List<BookingDTO> bookings = bookingService.getAllBookingsByCourt(courtId);
+		List<BookingDTO> bookings = bookingService.getAllBookingsByCourt(courtId);
 
-	    if(bookings.isEmpty()) {
-	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-	            .body(new ResponseAPI<>(false, null, "No bookings for this court"));
-	    }
-	    return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved successfully"));
+		if (bookings.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ResponseAPI<>(false, null, "No bookings for this court"));
+		}
+		return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved successfully"));
 	}
-	
+
 	@PostMapping("/getBooking/{id}")
-	public ResponseEntity<?> getBookingById(@PathVariable long id){
+	public ResponseEntity<?> getBookingById(@PathVariable long id) {
 		try {
 			BookingDTO booking = bookingService.getBookingById(id);
 			return ResponseEntity.ok(new ResponseAPI<>(true, booking, "Booking retrieved succesfully"));
-		}catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
 		}
 	}
-	
+
 	@PostMapping("/getBookingsByUser/{id}")
-	public ResponseEntity<?> getBookingsByUser(@PathVariable long id){
-		
+	public ResponseEntity<?> getBookingsByUser(@PathVariable long id) {
+
 		List<BookingDTO> bookings = bookingService.getBookingByUser(id);
-		
-		if(bookings.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, "There are no bookings"));
-		}else {
+
+		if (bookings.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body(new ResponseAPI<>(false, null, "There are no bookings"));
+		} else {
 			return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved succesfully"));
 		}
 	}
-	
+
 	@PostMapping("/addBooking")
-	public ResponseEntity<?> addBooking(@RequestBody BookingDTO bookingDTO){
-		
+	public ResponseEntity<?> addBooking(@RequestBody BookingDTO bookingDTO) {
+
 		bookingService.addBooking(bookingDTO);
 		return ResponseEntity.ok(new ResponseAPI<>(true, bookingDTO, "Booking added succesfully"));
-		
+
 	}
-	
+
 	@DeleteMapping("/deleteBooking/{id}")
-	public ResponseEntity<?> deleteBooking(@PathVariable long id){
+	public ResponseEntity<?> deleteBooking(@PathVariable long id) {
 		try {
 			bookingService.deleteBooking(id);
-			return ResponseEntity.ok(new ResponseAPI<>(true, bookingService.getBookingById(id), "Booking retrieved succesfully"));
-		}catch (RuntimeException e) {
+			return ResponseEntity
+					.ok(new ResponseAPI<>(true, bookingService.getBookingById(id), "Booking retrieved succesfully"));
+		} catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
 		}
 	}
-	
+
 }
