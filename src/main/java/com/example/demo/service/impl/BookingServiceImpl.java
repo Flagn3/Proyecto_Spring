@@ -31,6 +31,16 @@ public class BookingServiceImpl implements BookingService {
 	private UserRepository userRepository;
 
 	@Override
+	public List<BookingDTO> getAllBookings() {
+		List<Booking> bookings = bookingRepository.findAll();
+		List<BookingDTO> bookingDTOs = new ArrayList<>();
+		for (Booking b : bookings) {
+			bookingDTOs.add(transform(b));
+		}
+		return bookingDTOs;
+	}
+
+	@Override
 	public List<BookingDTO> getAllBookingsByFacility(long id) {
 		List<BookingDTO> bookings = new ArrayList<>();
 		for (Booking b : bookingRepository.findAll()) {
@@ -39,6 +49,16 @@ public class BookingServiceImpl implements BookingService {
 			}
 		}
 		return bookings;
+	}
+
+	@Override
+	public List<BookingDTO> getAllBookingsByCourt(long id) {
+		List<Booking> bookings = bookingRepository.findByCourtIdAndDeletedFalse(id);
+		List<BookingDTO> bookingDTOs = new ArrayList<>();
+		for (Booking b : bookings) {
+			bookingDTOs.add(transform(b));
+		}
+		return bookingDTOs;
 	}
 
 	@Override
