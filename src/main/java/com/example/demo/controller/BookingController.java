@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +40,17 @@ public class BookingController {
 		}
 	}
 	
+	@GetMapping("/getByCourt/{courtId}")
+	public ResponseEntity<?> getBookingsByCourt(@PathVariable int courtId) {
+	    List<BookingDTO> bookings = bookingService.getAllBookingsByCourt(courtId);
+
+	    if(bookings.isEmpty()) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+	            .body(new ResponseAPI<>(false, null, "No bookings for this court"));
+	    }
+	    return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved successfully"));
+	}
+	
 	@PostMapping("/getBooking/{id}")
 	public ResponseEntity<?> getBookingById(@PathVariable long id){
 		try {
@@ -65,7 +77,7 @@ public class BookingController {
 	public ResponseEntity<?> addBooking(@RequestBody BookingDTO bookingDTO){
 		
 		bookingService.addBooking(bookingDTO);
-		return ResponseEntity.ok(new ResponseAPI<>(true, bookingDTO, "Facility added succesfully"));
+		return ResponseEntity.ok(new ResponseAPI<>(true, bookingDTO, "Booking added succesfully"));
 		
 	}
 	
