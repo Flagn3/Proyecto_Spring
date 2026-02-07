@@ -58,7 +58,7 @@ public class FacilityController {
 		
 		try {
 			facilityService.deleteFacility(id);
-			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility added succesfully"));
+			return ResponseEntity.ok(new ResponseAPI<>(true, facilityService.getFacilityById(id), "Facility deleted succesfully"));
 		}catch(RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseAPI<>(false, null, e.getMessage()));
 		}

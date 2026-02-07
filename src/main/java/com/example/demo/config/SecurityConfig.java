@@ -31,8 +31,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/facilities/getAll").authenticated()
-                        .requestMatchers("/users/**", "/facilities/**").hasRole("ADMIN")
+                        .requestMatchers("/facilities/getAll", "/courts/facility/**", "/bookings/**").authenticated()
+                        .requestMatchers("/users/**", "/facilities/**", "/courts/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
