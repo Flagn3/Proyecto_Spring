@@ -54,7 +54,8 @@ public class FacilityServiceImpl implements FacilityService {
 		facility.setCloseTime(facilityDTO.getCloseTime());
 		facility.setOpenTime(facilityDTO.getOpenTime());
 		facility.setLocation(facilityDTO.getLocation());
-		
+		facility.setActivated(true);
+		facility.setDeleted(false);
 		facilityRepository.save(facility);
 
 	}
