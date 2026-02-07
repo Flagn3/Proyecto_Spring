@@ -45,7 +45,8 @@ public class CourtServiceImpl implements CourtService {
 	public List<CourtDTO> listCourtsByFacilityId(int id) {
 		List<CourtDTO> courtsDTO = new ArrayList<>();
 		for (Court court : courtRepository.findByFacilityId(id)) {
-			courtsDTO.add(transform(court));
+			if(court.isDeleted() == false)
+				courtsDTO.add(transform(court));
 		}
 		return courtsDTO;
 	}
