@@ -32,12 +32,8 @@ public class BookingController {
 	public ResponseEntity<?> getAllBookings() {
 		List<BookingDTO> bookings = bookingService.getAllBookings();
 
-		if (bookings.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new ResponseAPI<>(false, null, "There are no bookings"));
-		} else {
-			return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved successfully"));
-		}
+		return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved successfully"));
+
 	}
 
 	@PostMapping("/getAllBookings/{id}")
@@ -45,22 +41,14 @@ public class BookingController {
 
 		List<BookingDTO> bookings = bookingService.getAllBookingsByFacility(id);
 
-		if (bookings.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new ResponseAPI<>(false, null, "There are no bookings"));
-		} else {
-			return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved succesfully"));
-		}
+		return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved succesfully"));
+
 	}
 
 	@GetMapping("/getByCourt/{courtId}")
 	public ResponseEntity<?> getBookingsByCourt(@PathVariable int courtId) {
 		List<BookingDTO> bookings = bookingService.getAllBookingsByCourt(courtId);
 
-		if (bookings.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND)
-					.body(new ResponseAPI<>(false, null, "No bookings for this court"));
-		}
 		return ResponseEntity.ok(new ResponseAPI<>(true, bookings, "Bookings retrieved successfully"));
 	}
 
