@@ -27,7 +27,7 @@ public class FacilityServiceImpl implements FacilityService {
 	public List<FacilityDTO> listAllFacilities() {
 		List<FacilityDTO> facilities = new ArrayList<>();
 		for (Facility f : facilityRepository.findAll())
-			if(f.isDeleted() != false)
+			if(f.isDeleted() == false)
 				facilities.add(transform(f));
 		return facilities;
 	}
